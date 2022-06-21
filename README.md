@@ -1,14 +1,3 @@
-- 👋 Hi, I’m @AnriAko
-- 👀 I’m interested in ...
-- 🌱 I’m currently learning ...
-- 💞️ I’m looking to collaborate on ...
-- 📫 How to reach me ...
-
-<!---
-AnriAko/AnriAko is a ✨ special ✨ repository because its `README.md` (this file) appears on your GitHub profile.
-You can click the Preview link to take a look at your changes.
---->
-
 კურსის დასახელება:    ობიექტზე ორიენტირებული დაპროგრამება 1 (C++)       კურსის  სტატუსი:   ძირითადი 
 ქულების განაწილება:   1 –  8 ქულა,  2 – 14 ქულა,  3 – 9 ქულა,  4 – 4 ქულა,  5 – 5 ქულა       
 ქულების ჯამი:    40 ქულა
