@@ -486,3 +486,4 @@ virtual const char* what() const throw()
 	return "Unknown exception";
 }
 როდესაც ვიძახებთ  what ფუნქციას     მაშინ  სწორედ ის  გამოიტანს იმ ბრძანებას რაც მაsში არის ჩაწერილი ამ შემთხვევაში  unknown exception.ძირითადად what   არის ფუნქცია  რომელიც გამოიყენება  შესაბამისი ბრძანების გამოსატანად exception კლასისთვის.
+ 
