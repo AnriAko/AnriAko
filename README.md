@@ -486,3 +486,399 @@ virtual const char* what() const throw()
 	return "Unknown exception";
 }
 როდესაც ვიძახებთ  what ფუნქციას     მაშინ  სწორედ ის  გამოიტანს იმ ბრძანებას რაც მაsში არის ჩაწერილი ამ შემთხვევაში  unknown exception. ძირითადად what   არის ფუნქცია  რომელიც გამოიყენება  შესაბამისი ბრძანების გამოსატანად exception კლასისთვის.
+
+	კურსის დასახელება:    ობიექტზე ორიენტირებული დაპროგრამება 1 (C++)         კურსის  სტატუსი:   ძირითადი
+ქულების განაწილება:   1 –  8 ქულა,  2 – 14 ქულა,  3 – 9 ქულა,  4 – 4 ქულა,   5 – 5 ქულა.        	       
+ქულების ჯამი:    40 ქულა.
+გამოცდის ხანგრძლივობა:   3  საათი.
+
+1.	შექმენით კლასები Minibus (მიკროავტობუსი) და Car (ავტომობილი). ყოველ კლასში შემოიღეთ: დავალების პირობის შესაბამისი private მონაცემები; უპარამეტრო კონსტრუქტორი, რომელიც ობიექტის შექმნისთანავე უზრუნველყოფს მისი მონაცემების შემოტანას კლავიატურიდან და, თუ საჭიროა, კლასის სხვა ფუნქციები. 
+ასევე დაწერეთ მანქანების სიჩქარეების შეადარების ფუნქცია ისე, რომ  იგი იყოს  Car კლასის ფუნქცია, ხოლო Minibus კლასის – მეგობარი ფუნქცია.
+ძირითად ფუნქციაში შექმენით ორივე კლასის თითო–თითო ობიექტი, გამოიძახეთ სიჩქარეების შედარების ფუნქცია და დაბეჭდეთ იმ მანქანის მოცულობა, რომელსაც მეტი სიჩქარე აქვს. თუ სიჩქარეები ტოლია, დაბეჭდეთ მიკროავტობუსის წონა, ფერი და მგზავრების რაოდენობა. 
+
+#include <iostream>
+#include <string>
+using namespace std;
+
+class Car;
+
+class Minibus
+{
+	double speed;
+	string name;
+	int passengers;
+	double weight;
+	string colour;
+	int volume;
+public:
+	Minibus()
+	{
+		cout << "Minibus name - "; cin >> name;
+		cout << "Minibus speed (km/h) - "; cin >> speed;
+		cout << "Amount of passengers - "; cin >> passengers;
+		cout << "Minibus weight (kg) - "; cin >> weight;
+		cout << "Minibus colour - "; cin >> colour;
+		cout << "Minibus volume - "; cin >> volume;
+		cout << endl << endl;
+	}
+	~Minibus() {}
+	double getWeight() { return weight; }
+	int getPassengers() { return passengers; }
+	string getColor() { return colour; }
+	int getVolume() { return volume; }
+	unsigned int max(Car&);
+};
+
+class Car
+{
+	double speed;
+	string name;
+	double weight;
+	string colour;
+	int volume;
+public:
+	Car()
+	{
+		cout << "Car name - "; cin >> name;
+		cout << "Car speed (km/h) -"; cin >> speed;
+		cout << "Car weight (kg) - "; cin >> weight;
+		cout << "Car color - "; cin >> colour;
+		cout << "Car volume - "; cin >> volume;
+		cout << endl << endl;
+	}
+	~Car() {}
+	int getVolume() { return volume; }
+	friend unsigned int Minibus::max(Car&);
+};
+
+unsigned int Minibus::max(Car& C)
+{
+	if (this->speed > C.speed)return 1;
+	else if (this->speed < C.speed)return 2;
+	else return 3;
+}
+
+int main()
+{
+	Minibus M;
+	Car C;
+	int N = M.max(C);
+	if (N == 1)cout << "Minibus volume is: " << M.getVolume() << endl;
+	else if (N == 2)cout << "Car volume is: " << C.getVolume() << endl;
+	else cout << "Minibus:\nWeight-" << M.getWeight() <<" kg."<< "\nColour - "
+		<< M.getColor() << "\nPassengers - " << M.getPassengers() << endl;
+}
+
+
+2.	ააგეთ კლასების შემდეგი იერარქია: 
+ა).     საბაზო Population (მოსახლეობა) კლასის მონაცემებია number (მოსახლეობის რაოდენობა, მლნ.) და density (მოსახლეობის სიმჭიდროვე, ად/კმ2);  კლასის ფუნქციებია – პარამეტრებიანი კონსტრუქტორი, დესტრუქტორი და სხვა ფუნქციები საჭიროების მიხედვით; 
+ბ).   მეორე საბაზო Territory (ტერიტორია) კლასის მონაცემებია area (ფართობი, კვ.კმ) და city (ქალაქების რიცხვი);  კლასის ფუნქციებია – პარამეტრებიანი კონსტრუქტორი, დესტრუქტორი  და სხვა ფუნქციები საჭიროების მიხედვით;
+გ).     ორივე კლასის მემკვიდრე Country (ქვეყანა) კლასში დაამატეთ მონაცემები name (ქვეყნის სახელი) და language (ოფიციალური ენა); შემოიღეთ პარამეტრებიანი კონსტრუქტორი, დესტრუქტორი და სხვა ფუნქციები საჭიროების მიხედვით. კლასის ობიექტისთვის გადატვირთეთ  >>  და  <<  ოპერატორები.  ასევე გადატვირთეთ  <  ოპერატორი როგორც  Country  კლასის ფუნქცია.
+main -ში  შეასრულეთ შემდეგი დავალებები:
+1)  შექმენით Population და Territory კლასების თითო-თითო სტატიკური ობიექტი რაიმე კონკრეტული მნიშვნელობებით და შემდეგ დაბეჭდეთ ინფორმაცია მათ შესახებ; 
+2)  გააკეთეთ განაცხადი ქვეყნების დინამიკურ მასივზე და ჩაწერეთ მასში ქვეყნების მონაცემები countries.txt ფაილიდან. ქვეყნების რაოდენობა არ აღემატება 100–ს. 
+სტანდარტული sort ალგორითმის და გადატვირთული < ოპერატორის გამოყენებით დაალაგეთ ქვეყნების მასივი მოსახლეობის სიმჭიდროვის ზრდადობის მიხედვით. დალაგებული მასივი დაბეჭდეთ ეკრანზე.
+შემდეგ დაწერეთ კოდის ფრაგმენტი, რომელიც out.txt ფაილში დაბეჭდავს იმ ქვეყნების მონაცემებს, რომელთა მოსახლეობის სიმჭიდროვე არის უდიდესი, უმცირესი და  ყველაზე  ახლოს ყველა ქვეყნის საშუალო სიმჭიდროვესთან. 
+ბოლოს, გაათავისუფლეთ დაკავებული დინამიკური მეხსიერება. 
+
+#include<iostream>
+#include<fstream>
+#include<algorithm>
+using namespace std;
+
+class Population
+{
+protected:
+	int  number;
+	int density; // Density of population.
+public:
+	Population() {}
+	Population(int number, int density)
+	{
+		this->number = number;
+		this->density = density;
+	}
+	~Population() {}
+	void show()
+	{
+		cout << "Number - " << number
+			<< "\nDensity -  " << density;
+	}
+	int getDensity() { return density; }
+};
+
+class Territory
+{
+protected:
+	int area; // (square km)
+	int city;
+public:
+	Territory() {}
+	Territory(int area, int city)
+	{
+		this->area = area;
+		this->city = city;
+	}
+	~Territory() {}
+	void show()
+	{
+		cout << "\nArea - " << area
+			<< "\nCity - " << city << endl;
+	}
+};
+
+class Country :public Population, public Territory
+{
+	string name;
+	string language;
+public:
+	Country() {}
+	Country(int number, int density, int area, int city, string name, string language)
+		:Population(number, density), Territory(area, city)
+	{
+		this->name = name;
+		this->language = language;
+	}
+	friend istream& operator>>(istream& in, Country& C);
+	friend ostream& operator<<(ostream& out, Country& C);
+	bool operator <(Country& C)
+	{
+		return this->density < C.density;
+	}
+};
+istream& operator>>(istream& in, Country& C)
+{
+	cout << "Number-"; in >> C.number;
+	cout << "Density-"; in >> C.density;
+	cout << "Area-"; in >> C.area;
+	cout << "City-"; in >> C.city;
+	cout << "Name-"; in >> C.name;
+	cout << "Language-"; in >> C.language;
+	return in;
+}
+ostream& operator<<(ostream& out, Country& C)
+{
+	out << "Number" << C.number
+		<< "\nDensity-" << C.density
+		<< "\nArea-" << C.area
+		<< "\nCity-" << C.city
+		<< "\nName-" << C.name
+		<< "\nLanguage-" << C.language;
+	return out;
+}
+int main()
+{
+	static Population P(90, 8000);
+	static Territory T(6500, 9000);
+	cout << "Population\n";
+	P.show();
+	cout << "\nTerritory\n";
+	T.show();
+	ifstream fin("countries.txt");
+	Country* C = new(nothrow) Country[100];
+	int size = 0;
+	while (fin)
+	{
+		fin >> C[size];
+		size++;
+	}
+	sort(C, C + size);
+	for (int i(0); i < size; i++)
+	{
+		cout << C[i] << endl << endl;
+	}
+	ofstream fout("out.txt");
+	int sum(0);
+	int average;
+	for (int i(0); i < size; i++)
+	{
+		sum += C[i].getDensity();
+	}
+	average = sum / size;
+	int avNum;
+	for (int i(1); i < size; i++)
+	{
+		if (average >= C[i - 1].getDensity() && average <= C[i].getDensity())
+		{
+			if ((average - C[i - 1].getDensity()) < C[i].getDensity())
+			{
+				avNum = i - 1;
+			}
+			else
+			{
+				avNum = i;
+			}
+		}
+	}
+	fout << "Smallest - " << C[1] << endl
+		<< "Close to - " << C[avNum] << endl
+		<< "Biggest - " << C[size - 1];
+}
+3.	აბსტრაქტული კლასი Employee (თანამშრომელი) შეიცავს მხოლოდ ორ წმინდა ვირტუალურ ფუნქციას printStatus და salary. Employee კლასის საფუძველზე აგებულია კონკრეტული კლასები Staff  (შტატის თანამშრომელი) და HourlyWorker (საათობრივად მოწვეული თანამშრომელი). კონკრეტული კლასები შეიცავენ სათანადო მონაცემებსა და კონსტრუქტორებს. ყოველ კონკრეტულ კლასში  printStatus ფუნქციის დანიშნულებაა თანამშრომლის სტატუსის (ტიპის) ბეჭდვა, ხოლო salary ფუნქციისა –  მისი თვიური ხელფასის გამოთვლა.  
+   ამასთან:                              
+ა).   შტატის თანამშრომელი ღებულობს ფიქსირებულ თვიურ ხელფასს და კიდევ გარკვეულ დანამატს;  
+ბ).  საათობრივად მოწვეული თანამშრომლის ხელფასი გამოითვლება როგორც ერთ საათში შექმნილი პროდუქციის ღირებულება გამრავლებული მუშა საათებზე.
+main  –ში:
+1)	შექმენით კონკრეტული კლასების ორ–ორი ობიექტი განსხვავებული მონაცემებით. შემდეგ ყოველი კონკრეტული კლასის რომელიმე ერთი ობიექტისთვის გამოიძახეთ printStatus და  salary ფუნქ-ციები;
+2)	გააკეთეთ განაცხადი პოინტერების დინამიკურ მასივზე (ან პოინტერების სხვა კონტეინერზე) სახელით x,  რომელშიც შესაძლებელი იქნება შექმნილი ობიექტების მისამართების შენახვა; 
+3)	x –ში შეინახეთ შექმნილი ობიექტების მისამართები, შემდეგ ერთი განმეორების (ციკლის) შეტყობინებით და x –ის ელემენტების გამოყენებით დაბეჭდეთ  ობიექტების ინფორმაცია.
+
+#include <iostream>
+#include <vector>
+using namespace std;
+class Employee {
+public:
+	virtual void printStatus() = 0;
+	virtual int Salary() = 0;
+};
+class Staff : public Employee {
+	double salary, plus;
+public:
+	Staff(double salary, double plus) : salary(salary), plus(plus) {}
+	void printStatus()override {
+		cout << "Staff" << endl;
+	}
+	int Salary()override {
+		return salary + plus;
+	}
+};
+class hourlyWorker : public Employee {
+	double price;
+	int hour;
+public:
+	hourlyWorker(double price, int hour) : price(price), hour(hour) {}
+	void printStatus()override {
+		cout << "hourlyWorker" << endl;
+	}
+	int Salary()override {
+		return price * hour;
+	}
+};
+
+int main() {
+	Staff s1(100, 200);
+	Staff s2(20, 300);
+	hourlyWorker h1(11, 354);
+	hourlyWorker h2(123, 233);
+	s1.printStatus();
+	cout << s1.Salary() << endl;
+	h1.printStatus();
+	cout << h1.Salary() << endl;
+	vector<Employee*> emp{ &s1,&s2,&h1,&h2 };
+	for (int i = 0; i < 4; i++) {
+		emp[i]->printStatus();
+		cout << emp[i]->Salary() << endl;
+	}
+}
+
+4.	მოცემულია შემდეგი კოდი
+class B{
+  public:
+     B(){ cout << "B()\n"; }
+     virtual ~B(){ cout << "~B()\n"; }
+     void print(){cout << "B\n";}
+};
+class D: public B{
+  public:
+     D(){ cout << "D()\n"; }
+     ~D(){ cout << "~D()\n"; }
+     void print(){cout << "D\n";}
+};	int main() 
+{
+   B * p0, *p1;
+   p0 = new B;
+   p0->print(); 
+   delete p0;
+   p1 = new D;  
+   p1->print();
+   delete p1;
+}
+
+        ა).   შეასრულეთ შესაბამისი პროგრამა და ახსენით თუ რას დაბეჭდავს იგი და რატომ;
+B() ბეჭდავს B კლასის დეფოლტ კონსტრუქტორს
+B        მუშაობს ბეჭდვის ფუნქცია
+~B() ბეჭდავს Bკლასის დესტრუქტორს (დეფოლტ)
+B()    ბეჭდავს B კლასის დეფოლტ კონსტრუქტორს
+D()     ბეჭდავს D კლასის დეფოლტ კონსტრუქტორს
+B         მუშაობს ბეჭდვის ფუნქცია
+~D() ბეჭდავს D კლასის დესტრუქტორს (დეფოლტ)
+~B() ბეჭდავს B კლასის დესტრუქტორს (დეფოლტ)
+        ბ).   თუ პროგრამის შესრულების შედეგი, თქვენი აზრით, შეიცავს შეცდომას, ახსენით რა ტიპისაა ეს შეცდომა და როგორ შეიძლება მისი გასწორება. ბოლოს, აჩვენეთ სწორი გამოტანის ეკრანი.
+void print() { cout << "D\n"; } არ იბეჭდებოდა ეკრანზე, რის გამოც ცოტათი შევხვალე main.
+/* 
+B()
+B
+~B()
+B()
+D()
+D
+~D()
+~B()
+*/
+5.	რა დანიშნულება აქვს კლასის  თარგის (template) გამოყენებას? 
+რა შემთხვევაშია მიზანშეწონილი ფუნქცია–თარგის შექმნა?
+პასუხი: თარგი - არის მარტივი და თან იმავდროულად საკმაოდ ძლიერი ხელსაწყო C++ ენაში. მისი იდეა მარტივია: გადასცეს მონაცემთა ტიპი პარამეტრის სახით ისე, რომ ჩვენ არ მოგვიწიოს ერთი და იმავე კოდის წერა მონაცემთა სხვადასხვა ტიპებისთვის. მაგალითად, კომპანიამ პროგრამული უზრუნველყოფის დეველოპერს შესაძლოა მოთხოვოს sort() სხვადასხვა მონაცემთა ტიპებისთვის. იმის მაგივრად, რომ ვწეროთ რამდენიმე კოდი ჩვენ შეგვიძლია დავწეროთ sort() ერთხელ და გადავცეთ მონაცემთა ტიპი პარამეტრის სახით.
+C++ ენაში არსებობს ორი ძირითადი საკვანძო სიტყვა თარგის გამოსაყენებლად, ესენია: <template> და <typename>. მეორე სიტყვის შეცვლა ყოველთვის შეგვიძლია საკვანძო სიტყვით <class>.
+თარგი მუშაობს შემდეგნაირად: იგი ფართოვდება კომპილაციისას. ეს პროცესი ჰგავს მაკროსებს. განსხვავება იმაშია, რომ კომპილერი ამოწმებს ტიპებს თარგის გაფართოებამდე. იდეა მარტივია, კოდი თავდაპირველად შოიცავს, მხოლოდ, ფუნქციას/კლასს, ხოლო დაკომპილირებული კოდი შეიძლება შეიცავდეს რამდენიმე კოპიას ერთი და იმავე ფუნქციის/კლასის. ფუნქცია თარგის გამოყენებისას ჩვენ ვიყენებთ მის ძირითად ვარიაციას, რომელიც შეგვიძლია გამოვიყენოთ სხვადასხვა მონაცემთა ტიპებისთვის, როგორებიცაა: sort(), max(), min(), printArray(), swap(), count(), count_if()…
+
+შექმენით ფუნქცია–თარგი, რომელიც როგორც მთელი, ისე ნამდვილი რიცხვების ვექტორისთვის გამოითვლის და დააბრუნებს მისი ელემენტების ჯამის მეხუთედს. ვექტორი გადაეცით ფუნქციას ეფექტურად და უსაფრთხოდ. 
+მოიყვანეთ ამ ფუნქციის გამოყენების მაგალითი:  
+
+#include<iostream>
+#include<vector>
+using namespace std;
+template <typename T>
+T sum(const vector<T>& vec)
+{
+	T S = 0;
+	for (auto x : vec)
+	{
+		S += x;
+	}
+	return S / 5;
+}
+int main() {
+	vector<int>vec{ 1,2,3,4,5,6,7 };
+	cout << sum(vec) << endl;
+	vector<double>vec1{ 1.2, 2.3, 3.3, 5, 3.3 ,5.6,1,2,5 };
+	cout << sum(vec1);
+}
+
+
+ძირითად ფუნქციაში გააკეთეთ განაცხადი მთელი რიცხვების ვექტორზე, განაცხადისთანავე ჩაწერეთ ვექტორში 7 მთელი რიცხვი, გამოიძახეთ შექმნილი ფუნქცია და დაბეჭდეთ შედეგი. შემდეგ გააკეთეთ განაცხადი ნამდვილების ვექტორზე, განაცხადისთანავე ჩაწერეთ მასში 8 ნამდვილი რიცხვი და დაბეჭდეთ ფუნქციის მუშაობის შედეგი. შედეგების ბეჭდვას თან დაურთეთ სათანადო გზავნილები.
+
+//  კოდია, რომელშიც რამდენიც გვინდა იმდენ ელემენტს შევიტანთ
+#include <iostream>
+#include <vector>
+using namespace std;
+template <typename P>
+void printVector(const vector <P> & x)
+{
+	for (P el : x)
+	cout << el << ' ';
+	cout << endl;
+}
+template <typename In>
+void inputVector(vector <In> & x)
+{
+	int i(0);
+	In value;
+	while (cin >> value)
+		x.push_back(value);
+    cin.clear();
+	cin.ignore();
+}
+
+int main()
+{
+	vector <int> ints;
+	cout << "Enter ints separated by space and end by using Ctrl+Z.\n";
+	inputVector(ints);
+	printVector(ints);
+	vector<double > doubles;
+	cout << "Enter doubles separated by space and end by using Ctrl+Z.\n";
+	inputVector(doubles);
+	printVector(doubles);
+}
+
+
